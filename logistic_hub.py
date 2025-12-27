@@ -9,8 +9,8 @@ class LogisticHub:
 
 
 warehouse_graph = nx.Graph()
-first = warehouses.Warehouse("Warsaw", 2000)
-second = warehouses.Warehouse("Cracow", 1500)
+first = warehouses.Warehouse("Warsaw", 2000, 200)
+second = warehouses.Warehouse("Cracow", 1500, 100)
 
 warehouse_graph.add_node(first)
 warehouse_graph.add_node(second)
