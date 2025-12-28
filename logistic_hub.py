@@ -27,10 +27,11 @@ class LogisticHub:
                     weight=distance
                 )
 
+    @property
     def graph(self):
         return self._ware_graph
 
 
 logisticHub = LogisticHub()
-nx.draw(logisticHub.graph())
+nx.draw(logisticHub.graph, with_labels=True)
 plt.show()
