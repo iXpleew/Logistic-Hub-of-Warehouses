@@ -3,7 +3,16 @@
     {
       "name": "Warsaw Hub",
       "max_capacity": 5000,
-      "current_capacity": 4500,
+      "current_capacity": [
+        {
+          "product_name": "Carrot",
+          "product_quantity": 200
+        },
+        {
+          "product_name": "Tomato",
+          "product_quantity": 300
+        }
+      ],
       "connections": [
         {
           "target_name": "Lodz Depot",
@@ -22,7 +31,16 @@
     {
       "name": "Lodz Depot",
       "max_capacity": 3000,
-      "current_capacity": 1200,
+      "current_capacity": [
+        {
+          "product_name": "Strawberry",
+          "product_quantity": 1000
+        },
+        {
+          "product_name": "Carrot",
+          "product_quantity": 1500
+        }
+      ],
       "connections": [
         {
           "target_name": "Warsaw Hub",
@@ -41,7 +59,12 @@
     {
       "name": "Cracow Center",
       "max_capacity": 4000,
-      "current_capacity": 3800,
+      "current_capacity": [
+        {
+          "product_name": "Apple",
+          "product_quantity": 3000
+        }
+      ],
       "connections": [
         {
           "target_name": "Warsaw Hub",
@@ -56,7 +79,16 @@
     {
       "name": "Poznan Annex",
       "max_capacity": 3200,
-      "current_capacity": 2900,
+      "current_capacity": [
+        {
+          "product_name": "Cucumber",
+          "product_quantity": 200
+        },
+        {
+          "product_name": "Oranges",
+          "product_quantity": 400
+        }
+      ],
       "connections": [
         {
           "target_name": "Lodz Depot",
@@ -71,7 +103,16 @@
     {
       "name": "Gdansk Port",
       "max_capacity": 2800,
-      "current_capacity": 1000,
+      "current_capacity": [
+        {
+          "product_name": "Oranges",
+          "product_quantity": 100
+        },
+        {
+          "product_name": "Onion",
+          "product_quantity": 600
+        }
+      ],
       "connections": [
         {
           "target_name": "Warsaw Hub",

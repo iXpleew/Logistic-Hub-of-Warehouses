@@ -1,8 +1,6 @@
 class Warehouse:
-    def __init__(self, name, max_capacity, curr_capacity, connections=None):
+    def __init__(self, name, max_capaci, curr_capaci=None, connections=None):
         self._name = name
-        self._max_capacity = max_capacity
-        if curr_capacity > max_capacity:
-            raise ValueError("Warehouse overloaded!")
-        self._curr_capacity = curr_capacity
+        self._max_capaci = max_capaci
+        self._curr_capaci = curr_capaci
         self._connections = connections
