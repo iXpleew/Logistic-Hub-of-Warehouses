@@ -1,9 +1,10 @@
 from logistic_hub import LogisticHub
 start_data = "data.json"
+test_data = "testing_data.json"
 
 if __name__ == "__main__":
-    hub = LogisticHub(start_data)
-    hub.add_warehuse(
+    hub = LogisticHub(test_data)
+    hub.add_warehouse(
         name="Wroclaw Hub",
         max_capaci=2000,
         curr_capaci=[
@@ -12,7 +13,7 @@ if __name__ == "__main__":
                 "product_quantity": 1900
             }
         ],
-        connections=[{
+        connect=[{
             "target_name": "Cracow Center",
             "distance": 100
         }]

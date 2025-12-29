@@ -5,10 +5,11 @@ from matplotlib import pyplot as plt
 
 
 class LogisticHub:
-    def __init__(self, file):
+    def __init__(self, data_file):
+        self._data_file = data_file
         self._ware_graph = nx.Graph()
         self.ware_list = []
-        with open(file, mode="r") as file:
+        with open(data_file, mode="r") as file:
             data = json.load(file)
         for warehouse_data in data["warehouses"]:
             warehouse = Warehouse(
@@ -29,8 +30,9 @@ class LogisticHub:
                     weight=distance
                 )
 
-    def add_warehuse(self, name, max_capaci, curr_capaci, connections):
-        new_warehouse = Warehouse(name, max_capaci, curr_capaci, connections)
+    def add_warehouse(self, name, max_capaci, curr_capaci, connect):
+        new_warehouse = Warehouse(name, max_capaci, curr_capaci, connect)
+
         self.graph.add_node(name, item=new_warehouse)
         self.ware_list.append(new_warehouse)
         if new_warehouse.connections is not None:
@@ -38,6 +40,23 @@ class LogisticHub:
                 self.graph.add_edge(connection["target_name"],
                                     name,
                                     weight=connection["distance"])
+        with open(self.data_file, mode="r") as file:
+            data = json.load(file)
+            warehouse_data = data["warehouses"]
+            new_dict_warehouse = {
+                "name": name,
+                "max_capacity": max_capaci,
+                "current_capacity": curr_capaci,
+                "connections": connect
+            }
+            warehouse_data.append(new_dict_warehouse)
+
+        with open(self.data_file, mode="w") as file:
+            json.dump(data, file, indent=2)
+
+    @property
+    def data_file(self):
+        return self._data_file
 
     @property
     def graph(self):

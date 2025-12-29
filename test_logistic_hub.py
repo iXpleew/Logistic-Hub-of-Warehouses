@@ -17,7 +17,7 @@ def test_maximum_capacity_overreached():
 def test_adding_new_overreached_hub():
     with pytest.raises(ValueError):
         hub = LogisticHub(valid_data)
-        hub.add_warehuse(
+        hub.add_warehouse(
             name="Wroclaw Hub",
             max_capaci=2000,
             curr_capaci=[
@@ -26,7 +26,7 @@ def test_adding_new_overreached_hub():
                     "product_quantity": 123900
                 }
             ],
-            connections=[{
+            connect=[{
                 "target_name": "Cracow Center",
                 "distance": 100
             }]
