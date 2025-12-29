@@ -5,10 +5,10 @@ import json
 
 
 class LogisticHub:
-    def __init__(self):
+    def __init__(self, file):
         self._ware_graph = nx.Graph()
         self._ware_list = []
-        with open("data.json", mode="r") as file:
+        with open(file, mode="r") as file:
             data = json.load(file)
         for warehouse_data in data["warehouses"]:
             warehouse = warehouses.Warehouse(
@@ -34,6 +34,6 @@ class LogisticHub:
         return self._ware_graph
 
 
-logisticHub = LogisticHub()
+logisticHub = LogisticHub("data.json")
 nx.draw(logisticHub.graph, with_labels=True)
 plt.show()
