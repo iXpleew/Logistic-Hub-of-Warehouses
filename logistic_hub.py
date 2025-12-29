@@ -56,6 +56,27 @@ class LogisticHub:
         with open(self.data_file, mode="w") as file:
             json.dump(data, file, indent=2)
 
+    def start_request(self):
+        pass
+
+    def search_product(self):
+        pass
+
+    def add_product(self):
+        pass
+
+    def remove_product(self):
+        pass
+
+    def show_actual_requests(self):
+        pass
+
+    def show_what_warehouse_has(self):
+        pass
+
+    def save_hub(self):
+        pass
+
     @property
     def data_file(self):
         return self._data_file
