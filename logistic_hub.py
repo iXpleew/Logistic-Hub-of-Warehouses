@@ -1,6 +1,5 @@
 import warehouses
 import networkx as nx
-import matplotlib.pyplot as plt
 import json
 
 
@@ -32,8 +31,3 @@ class LogisticHub:
     @property
     def graph(self):
         return self._ware_graph
-
-
-logisticHub = LogisticHub("data.json")
-nx.draw(logisticHub.graph, with_labels=True)
-plt.show()
