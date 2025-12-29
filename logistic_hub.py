@@ -31,3 +31,6 @@ class LogisticHub:
     @property
     def graph(self):
         return self._ware_graph
+
+    def draw_graph(self):
+        nx.draw(self.graph, with_labels=True)
