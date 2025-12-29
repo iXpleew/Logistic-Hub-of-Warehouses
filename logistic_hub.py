@@ -9,6 +9,7 @@ class LogisticHub:
         self._data_file = data_file
         self._ware_graph = nx.Graph()
         self.ware_list = []
+
         with open(data_file, mode="r") as file:
             data = json.load(file)
         for warehouse_data in data["warehouses"]:
@@ -35,6 +36,7 @@ class LogisticHub:
 
         self.graph.add_node(name, item=new_warehouse)
         self.ware_list.append(new_warehouse)
+
         if new_warehouse.connections is not None:
             for connection in new_warehouse.connections:
                 self.graph.add_edge(connection["target_name"],
