@@ -10,3 +10,11 @@ class Warehouse:
                 raise ValueError("Current capacity larger than maximux")
         self._curr_capaci = curr_capaci
         self._connections = connections
+
+    @property
+    def curr_capacity(self):
+        return self._curr_capaci
+
+    @property
+    def connections(self):
+        return self._connections
