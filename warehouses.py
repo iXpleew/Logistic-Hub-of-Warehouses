@@ -12,6 +12,10 @@ class Warehouse:
         self._connections = connections
 
     @property
+    def name(self):
+        return self._name
+
+    @property
     def curr_capacity(self):
         return self._curr_capaci
 
