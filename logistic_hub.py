@@ -59,10 +59,13 @@ class LogisticHub:
     def start_request(self):
         pass
 
-    def search_product(self):
-        pass
+    def search_product(self, name):
+        for house in self.ware_list:
+            for product in house.curr_capacity:
+                if product["product_name"] == name:
+                    print(f"{house.name} has {name}!")
 
-    def add_product(self):
+    def add_product(self, name, quantity, warehouse):
         pass
 
     def remove_product(self):
