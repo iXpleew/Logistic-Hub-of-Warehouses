@@ -18,3 +18,11 @@ class Warehouse:
     @property
     def connections(self):
         return self._connections
+
+    def show_products(self):
+        if self._curr_capaci is None:
+            print("This Warehouse doesnt have anything inside")
+        else:
+            print("This Warehouse has: ")
+            for prod in self._curr_capaci:
+                print(f'{prod["product_name"]} - {prod["product_quantity"]}')

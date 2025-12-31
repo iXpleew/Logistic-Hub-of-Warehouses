@@ -71,8 +71,8 @@ class LogisticHub:
     def show_actual_requests(self):
         pass
 
-    def show_what_warehouse_has(self):
-        pass
+    def show_what_warehouse_has(self, warehouse):
+        warehouse.show_products()
 
     def save_hub(self):
         pass
