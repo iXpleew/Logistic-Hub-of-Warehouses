@@ -31,3 +31,8 @@ def test_adding_new_overreached_hub():
                 "distance": 100
             }]
         )
+
+
+def test_return_correct_data_file():
+    hub = LogisticHub(valid_data)
+    assert valid_data == hub.data_file

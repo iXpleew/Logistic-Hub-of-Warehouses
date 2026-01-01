@@ -30,3 +30,6 @@ class Warehouse:
             print("This Warehouse has: ")
             for prod in self._curr_capaci:
                 print(f'{prod["product_name"]} - {prod["product_quantity"]}')
+
+    def add_product(self):
+        pass
