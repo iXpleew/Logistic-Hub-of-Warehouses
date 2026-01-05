@@ -66,8 +66,9 @@ class LogisticHub:
                 if product["product_name"] == name:
                     print(f"{house.name} has {name}!")
 
-    def add_product(self, request, warehouse):
-
+    def add_product(self, warehouse, name, quantity):
+        request = Request(product_name=name, capacity=quantity)
+        warehouse.add_product(request)
         pass
 
     def remove_product(self):
