@@ -67,7 +67,7 @@ class LogisticHub:
                     print(f"{house.name} has {name}!")
 
     def add_product(self, warehouse, name, quantity):
-        request = Request(product_name=name, capacity=quantity)
+        request = Request(product_name=name, quantity=quantity)
         warehouse.add_product(request)
         pass
 

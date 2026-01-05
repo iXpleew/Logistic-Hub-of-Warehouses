@@ -24,10 +24,16 @@ class Warehouse:
     def connections(self):
         return self._connections
 
-    def check_overload(self, given_capacity, new_product=0):
-        quantity_sum = new_product
-        for product in given_capacity:
+    def count_currentcapacity(self, products):
+        if products is None:
+            return 0
+        quantity_sum = 0
+        for product in products:
             quantity_sum += product["product_quantity"]
+        return quantity_sum
+
+    def check_overload(self, given_capacity, new_product=0):
+        quantity_sum = new_product + self.count_currentcapacity(given_capacity)
         if quantity_sum > self.max_capacity:
             return True
         else:
@@ -41,7 +47,30 @@ class Warehouse:
             for prod in self._curr_capaci:
                 print(f'{prod["product_name"]} - {prod["product_quantity"]}')
 
+    def editing_quantity(self, request):
+        demanded_product = request.product_name
+        demanded_quantity = request.quantity
+
+        if self.curr_capacity is None:
+            self._curr_capacity = []
+            self._curr_capacity.append({
+                "product_name": demanded_product,
+                "product_quantity": demanded_quantity
+            })
+            return
+        for product in self.curr_capacity:
+            if product["product_name"] == demanded_product:
+                product["product_quantity"] += demanded_quantity
+                return
+        self._curr_capacity.append({
+            "product_name": demanded_product,
+            "product_quantity": demanded_quantity
+        })
+
     def add_product(self, request):
-        if self.check_overload(self.curr_capacity, request.capacity):
-            pass
-        pass
+        if self.check_overload(self.curr_capacity, request.quantity):
+            print(f"That request makes {self.name} overloaded!")
+            print("Request is queued!")
+            self.requests_queue.append(request)
+        else:
+            self.editing_quantity(request)
