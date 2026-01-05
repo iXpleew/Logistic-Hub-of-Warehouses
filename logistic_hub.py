@@ -1,4 +1,5 @@
 from warehouses import Warehouse
+from requests import Request
 import networkx as nx
 import json
 from matplotlib import pyplot as plt
@@ -65,7 +66,8 @@ class LogisticHub:
                 if product["product_name"] == name:
                     print(f"{house.name} has {name}!")
 
-    def add_product(self, name, quantity, warehouse):
+    def add_product(self, request, warehouse):
+
         pass
 
     def remove_product(self):
