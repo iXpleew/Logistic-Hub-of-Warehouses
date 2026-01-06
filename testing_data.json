@@ -12,7 +12,20 @@
         "product_quantity": 300
       }
     ],
-    "connections": null
+    "connections": [
+      {
+        "target_name": "Lodz Depot",
+        "distance": 130
+      },
+      {
+        "target_name": "Gdansk Port",
+        "distance": 340
+      },
+      {
+        "target_name": "Cracow Center",
+        "distance": 300
+      }
+    ]
   },
   {
     "name": "Lodz Depot",
@@ -27,7 +40,20 @@
         "product_quantity": 1500
       }
     ],
-    "connections": null
+    "connections": [
+      {
+        "target_name": "Warsaw Hub",
+        "distance": 130
+      },
+      {
+        "target_name": "Poznan Annex",
+        "distance": 200
+      },
+      {
+        "target_name": "Cracow Center",
+        "distance": 150
+      }
+    ]
   },
   {
     "name": "Cracow Center",
@@ -38,7 +64,16 @@
         "product_quantity": 3000
       }
     ],
-    "connections": null
+    "connections": [
+      {
+        "target_name": "Warsaw Hub",
+        "distance": 300
+      },
+      {
+        "target_name": "Lodz Depot",
+        "distance": 150
+      }
+    ]
   },
   {
     "name": "Poznan Annex",
@@ -53,7 +88,16 @@
         "product_quantity": 400
       }
     ],
-    "connections": null
+    "connections": [
+      {
+        "target_name": "Lodz Depot",
+        "distance": 200
+      },
+      {
+        "target_name": "Gdansk Port",
+        "distance": 250
+      }
+    ]
   },
   {
     "name": "Gdansk Port",
@@ -68,6 +112,15 @@
         "product_quantity": 600
       }
     ],
-    "connections": null
+    "connections": [
+      {
+        "target_name": "Warsaw Hub",
+        "distance": 340
+      },
+      {
+        "target_name": "Poznan Annex",
+        "distance": 250
+      }
+    ]
   }
 ]

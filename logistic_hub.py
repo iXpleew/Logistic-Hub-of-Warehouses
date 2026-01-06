@@ -17,7 +17,8 @@ class LogisticHub:
             warehouse = Warehouse(
                 warehouse_data["name"],
                 warehouse_data["max_capacity"],
-                warehouse_data["current_capacity"])
+                warehouse_data["current_capacity"],
+                warehouse_data["connections"])
             self._ware_graph.add_node(warehouse_data["name"], item=warehouse)
             self.ware_list.append(warehouse)
 
