@@ -70,7 +70,8 @@ class Warehouse:
     def add_product(self, request):
         if self.check_overload(self.curr_capacity, request.quantity):
             if request.quantity > self.max_capacity:
-                return print("Request cancelled, because its quantity is bigger than maximum capacity!")
+                print("Request cancelled, because its quantity is bigger than maximum capacity!")
+                return False
             print(f"That request makes {self.name} overloaded!")
             print("Request is queued!")
             self.requests_queue.append(request)
@@ -79,14 +80,17 @@ class Warehouse:
 
     def remove_product(self, request):
         if self.curr_capacity is None:
-            print(f"There is no {request.product_name} in this warehouse")
-            return
+            print("There is nothing in this warehouse")
+            return False
         for product in self.curr_capacity:
             if product["product_name"] == request.product_name:
                 left_products = product["product_quantity"] - request.quantity
                 if left_products > 0:
                     product["product_quantity"] = left_products
+                    return True
                 else:
                     self.curr_capacity[:] = [x for x in self.curr_capacity if x["product_name"] != request.product_name]
-                    print(f"That request deleted all of the {request.product_name}!")
-                return
+                    print(f"For simplification, that request deleted all of the {request.product_name}!")
+                    return True
+        print("Object wasn't found in this warehouse!")
+        return False
