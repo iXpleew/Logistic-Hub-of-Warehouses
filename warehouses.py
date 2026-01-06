@@ -74,3 +74,17 @@ class Warehouse:
             self.requests_queue.append(request)
         else:
             self.editing_quantity(request)
+
+    def remove_product(self, request):
+        if self.curr_capacity is None:
+            print(f"There is no {request.product_name} in this warehouse")
+            return
+        for product in self.curr_capacity:
+            if product["product_name"] == request.product_name:
+                left_products = product["product_quantity"] - request.quantity
+                if left_products > 0:
+                    product["product_quantity"] = left_products
+                else:
+                    self.curr_capacity[:] = [x for x in self.curr_capacity if x["product_name"] != request.product_name]
+                    print(f"That request deleted all of the {request.product_name}!")
+                return

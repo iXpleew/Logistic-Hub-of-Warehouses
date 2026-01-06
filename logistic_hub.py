@@ -71,7 +71,9 @@ class LogisticHub:
         warehouse.add_product(request)
         pass
 
-    def remove_product(self):
+    def remove_product(self, warehouse, name, quantity):
+        request = Request(product_name=name, quantity=quantity)
+        warehouse.remove_product(request)
         pass
 
     def show_actual_requests(self):
