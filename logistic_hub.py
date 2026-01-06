@@ -121,7 +121,7 @@ class LogisticHub:
             }
             warehouse_list.append(new_dict)
         with open("testing_data.json", mode="w") as file:
-            json.dump(warehouse_list, file, indent=2)
+            json.dump({"warehouses": warehouse_list}, file, indent=2)
 
         pass
 
