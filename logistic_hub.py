@@ -11,54 +11,27 @@ class LogisticHub:
         self._ware_graph = nx.Graph()
         self.ware_list = []
 
-        with open(data_file, mode="r") as file:
-            data = json.load(file)
-        for warehouse_data in data["warehouses"]:
-            warehouse = Warehouse(
-                warehouse_data["name"],
-                warehouse_data["max_capacity"],
-                warehouse_data["current_capacity"],
-                warehouse_data["connections"])
-            self._ware_graph.add_node(warehouse_data["name"], item=warehouse)
-            self.ware_list.append(warehouse)
+    def add_edges_to_graph(self, warehouse: Warehouse):
+        if warehouse.connections is None:
+            return
 
-        for source in data["warehouses"]:
-            if source["connections"] is None:
-                break
-            for destination in source["connections"]:
-                target = destination["target_name"]
-                distance = destination["distance"]
+        for connection in warehouse.connections:
+            destination = connection["target_name"]
+            distance = connection["distance"]
 
-                self.graph.add_edge(
-                    source["name"],
-                    target,
-                    weight=distance
-                )
+            self.graph.add_edge(
+                warehouse.name,
+                destination,
+                weight=distance
+            )
+        pass
 
     def add_warehouse(self, name, max_capaci, curr_capaci, connect):
         new_warehouse = Warehouse(name, max_capaci, curr_capaci, connect)
 
         self.graph.add_node(name, item=new_warehouse)
         self.ware_list.append(new_warehouse)
-
-        if new_warehouse.connections is not None:
-            for connection in new_warehouse.connections:
-                self.graph.add_edge(connection["target_name"],
-                                    name,
-                                    weight=connection["distance"])
-        # with open(self.data_file, mode="r") as file:
-        #     data = json.load(file)
-        #     warehouse_data = data["warehouses"]
-        #     new_dict_warehouse = {
-        #         "name": name,
-        #         "max_capacity": max_capaci,
-        #         "current_capacity": curr_capaci,
-        #         "connections": connect
-        #     }
-        #     warehouse_data.append(new_dict_warehouse)
-
-        # with open(self.data_file, mode="w") as file:
-        #     json.dump(data, file, indent=2)
+        self.add_edges_to_graph(new_warehouse)
 
     def start_request(self, source, destination, name, quantity):
         request = Request(name, quantity, source, destination)
@@ -123,7 +96,21 @@ class LogisticHub:
         with open("testing_data.json", mode="w") as file:
             json.dump({"warehouses": warehouse_list}, file, indent=2)
 
-        pass
+    def load_hub(self):
+        self.ware_list.clear()
+        with open(self.data_file, mode="r") as file:
+            data = json.load(file)
+        for warehouse_data in data["warehouses"]:
+            warehouse = Warehouse(
+                warehouse_data["name"],
+                warehouse_data["max_capacity"],
+                warehouse_data["current_capacity"],
+                warehouse_data["connections"])
+            self._ware_graph.add_node(warehouse_data["name"], item=warehouse)
+            self.ware_list.append(warehouse)
+
+        for warehouse in data["warehouses"]:
+            self.add_edges_to_graph(warehouse)
 
     @property
     def data_file(self):
