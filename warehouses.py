@@ -6,7 +6,8 @@ class Warehouse:
             raise ValueError("Warehouse overloaded!")
         self._curr_capaci = curr_capaci
         self._connections = connections
-        self.requests_queue = []
+        self.to_be_sent = []
+        self.to_be_given = []
 
     @property
     def name(self):
@@ -31,6 +32,14 @@ class Warehouse:
         for product in products:
             quantity_sum += product["product_quantity"]
         return quantity_sum
+
+    def is_there_a_product(self, name):
+        if self.curr_capacity is None:
+            return False
+        for product in self.curr_capacity:
+            if product["product_name"] == name:
+                return True
+        return False
 
     def check_overload(self, given_capacity, new_product=0):
         quantity_sum = new_product + self.count_currentcapacity(given_capacity)
@@ -74,7 +83,7 @@ class Warehouse:
                 return False
             print(f"That request makes {self.name} overloaded!")
             print("Request is queued!")
-            self.requests_queue.append(request)
+            self.to_be_given.append(request)
         else:
             self.adding_quantity(request)
 

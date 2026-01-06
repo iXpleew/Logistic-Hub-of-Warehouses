@@ -12,3 +12,11 @@ class Request:
     @property
     def quantity(self):
         return self._quantity
+
+    @property
+    def source(self):
+        return self._source
+
+    @property
+    def destination(self):
+        return self._destination

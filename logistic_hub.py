@@ -10,6 +10,8 @@ class LogisticHub:
         self._data_file = data_file
         self._ware_graph = nx.Graph()
         self.ware_list = []
+        self.requests_list = []
+
         self.load_hub()
 
     def add_edges_to_graph(self, warehouse: Warehouse):
@@ -25,7 +27,6 @@ class LogisticHub:
                 destination,
                 weight=distance
             )
-        pass
 
     def add_warehouse(self, name, max_capaci, curr_capaci, connect):
         new_warehouse = Warehouse(name, max_capaci, curr_capaci, connect)
@@ -34,7 +35,7 @@ class LogisticHub:
         self.ware_list.append(new_warehouse)
         self.add_edges_to_graph(new_warehouse)
 
-    def start_request(self, source, destination, name, quantity):
+    def start_request(self, source: Warehouse, destination: Warehouse, name, quantity):
         request = Request(name, quantity, source, destination)
         source_warehouse = self.return_warehouse(source)
         destination_warehouse = self.return_warehouse(destination)
@@ -43,8 +44,15 @@ class LogisticHub:
             return print("One of these warehouses doesnt exist, request cancelled!")
 
         if destination_warehouse.max_capacity > request.quantity:
-            pass
-        pass
+            return print("Request's capacity is bigger than maximum capacity")
+
+        # add this condition to method which completes all of the requests (because item may be removed meanwhile)
+        # if not destination.is_there_a_product(request.product_name):
+        #     return print(f"{destination.name} dosnt have {request.product_name}")
+
+        # now it should work
+        print("Request is accepted!")
+        self.requests_list.append(request)
 
     def search_product(self, name):
         for house in self.ware_list:
@@ -56,7 +64,8 @@ class LogisticHub:
         warehouse = self.return_warehouse(warehouse_name)
         if warehouse is None:
             return print("Cannot add product to no-existing warehouse")
-        request = Request(product_name=name, quantity=quantity)
+        request = Request(product_name=name, quantity=quantity, destination=warehouse)
+
         warehouse.add_product(request)
         pass
 
@@ -64,7 +73,8 @@ class LogisticHub:
         warehouse = self.return_warehouse(warehouse_name)
         if warehouse is None:
             return print("Cannot remove product form no-existing warehouse")
-        request = Request(product_name=name, quantity=quantity)
+        request = Request(product_name=name, quantity=quantity, source=warehouse)
+
         warehouse.remove_product(request)
         pass
 
