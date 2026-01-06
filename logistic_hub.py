@@ -10,6 +10,7 @@ class LogisticHub:
         self._data_file = data_file
         self._ware_graph = nx.Graph()
         self.ware_list = []
+        self.load_hub()
 
     def add_edges_to_graph(self, warehouse: Warehouse):
         if warehouse.connections is None:
@@ -109,7 +110,7 @@ class LogisticHub:
             self._ware_graph.add_node(warehouse_data["name"], item=warehouse)
             self.ware_list.append(warehouse)
 
-        for warehouse in data["warehouses"]:
+        for warehouse in self.ware_list:
             self.add_edges_to_graph(warehouse)
 
     @property
