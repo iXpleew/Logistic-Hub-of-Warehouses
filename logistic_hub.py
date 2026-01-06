@@ -79,7 +79,15 @@ class LogisticHub:
         pass
 
     def show_actual_requests(self):
-        pass
+        print("******* DELIVERIES *******")
+        for request in self.requests_list:
+            print(f"FROM: {request.source}")
+            print(f"TO: {request.destination}")
+            print(f"{request.product_name} - {request.product_quantity}")
+            bypassed_cities = nx.dijkstra_path(self.graph, request.source, request.destination)
+            distance = nx.dijkstra_path_length(self.graph, request.source, request.destination)
+            print(f"Through: {bypassed_cities} and total distance is {distance}")
+            print()
 
     def return_warehouse(self, warehouse_name):
         for warehouse in self.ware_list:
