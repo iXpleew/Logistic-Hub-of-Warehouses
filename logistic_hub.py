@@ -35,7 +35,7 @@ class LogisticHub:
         self.ware_list.append(new_warehouse)
         self.add_edges_to_graph(new_warehouse)
 
-    def start_request(self, source: Warehouse, destination: Warehouse, name, quantity):
+    def start_request(self, source: str, destination: str, name, quantity):
         request = Request(name, quantity, source, destination)
         source_warehouse = self.return_warehouse(source)
         destination_warehouse = self.return_warehouse(destination)
@@ -43,7 +43,7 @@ class LogisticHub:
         if source_warehouse is None or destination_warehouse is None:
             return print("One of these warehouses doesnt exist, request cancelled!")
 
-        if destination_warehouse.max_capacity > request.quantity:
+        if destination_warehouse.max_capacity < request.quantity:
             return print("Request's capacity is bigger than maximum capacity")
 
         # add this condition to method which completes all of the requests (because item may be removed meanwhile)
@@ -65,7 +65,6 @@ class LogisticHub:
         if warehouse is None:
             return print("Cannot add product to no-existing warehouse")
         request = Request(product_name=name, quantity=quantity, destination=warehouse)
-
         warehouse.add_product(request)
         pass
 
@@ -83,7 +82,7 @@ class LogisticHub:
         for request in self.requests_list:
             print(f"FROM: {request.source}")
             print(f"TO: {request.destination}")
-            print(f"{request.product_name} - {request.product_quantity}")
+            print(f"{request.product_name} - {request.quantity}")
             bypassed_cities = nx.dijkstra_path(self.graph, request.source, request.destination)
             distance = nx.dijkstra_path_length(self.graph, request.source, request.destination)
             print(f"Through: {bypassed_cities} and total distance is {distance}")
