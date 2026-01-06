@@ -47,7 +47,7 @@ class Warehouse:
             for prod in self._curr_capaci:
                 print(f'{prod["product_name"]} - {prod["product_quantity"]}')
 
-    def editing_quantity(self, request):
+    def adding_quantity(self, request):
         demanded_product = request.product_name
         demanded_quantity = request.quantity
 
@@ -76,7 +76,7 @@ class Warehouse:
             print("Request is queued!")
             self.requests_queue.append(request)
         else:
-            self.editing_quantity(request)
+            self.adding_quantity(request)
 
     def remove_product(self, request):
         if self.curr_capacity is None:
@@ -87,10 +87,9 @@ class Warehouse:
                 left_products = product["product_quantity"] - request.quantity
                 if left_products > 0:
                     product["product_quantity"] = left_products
-                    return True
                 else:
                     self.curr_capacity[:] = [x for x in self.curr_capacity if x["product_name"] != request.product_name]
                     print(f"For simplification, that request deleted all of the {request.product_name}!")
-                    return True
+                return True
         print("Object wasn't found in this warehouse!")
         return False

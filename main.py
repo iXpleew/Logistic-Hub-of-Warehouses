@@ -5,7 +5,7 @@ test_data = "testing_data.json"
 if __name__ == "__main__":
     hub = LogisticHub(test_data)
     hub.show_what_warehouse_has("Warsaw Hub")
-    hub.add_product("Warsaw Hub", "Carrot", 100)
-    hub.show_what_warehouse_has("Warsaw Hub")
+    hub.add_product("Warsaw Hub", "Carrot", 3000)
+    hub.save_hub()
 
 # adding a condition to check if request blocks totally warehouse

@@ -59,7 +59,16 @@ class LogisticHub:
         # with open(self.data_file, mode="w") as file:
         #     json.dump(data, file, indent=2)
 
-    def start_request(self):
+    def start_request(self, source, destination, name, quantity):
+        request = Request(name, quantity, source, destination)
+        source_warehouse = self.return_warehouse(source)
+        destination_warehouse = self.return_warehouse(destination)
+
+        if source_warehouse is None or destination_warehouse is None:
+            return print("One of these warehouses doesnt exist, request cancelled!")
+
+        if destination_warehouse.max_capacity > request.quantity:
+            pass
         pass
 
     def search_product(self, name):
@@ -101,6 +110,18 @@ class LogisticHub:
             warehouse.show_products()
 
     def save_hub(self):
+        warehouse_list = []
+        for warehouse in self.ware_list:
+            new_dict = {
+                "name": warehouse.name,
+                "max_capacity": warehouse.max_capacity,
+                "current_capacity": warehouse.curr_capacity,
+                "connections": warehouse.connections
+            }
+            warehouse_list.append(new_dict)
+        with open("testing_data.json", mode="w") as file:
+            json.dump(warehouse_list, file, indent=2)
+
         pass
 
     @property
