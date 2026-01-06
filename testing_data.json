@@ -17,14 +17,6 @@
         {
           "target_name": "Lodz Depot",
           "distance": 130
-        },
-        {
-          "target_name": "Gdansk Port",
-          "distance": 340
-        },
-        {
-          "target_name": "Cracow Center",
-          "distance": 300
         }
       ]
     },
@@ -45,82 +37,6 @@
         {
           "target_name": "Warsaw Hub",
           "distance": 130
-        },
-        {
-          "target_name": "Poznan Annex",
-          "distance": 200
-        },
-        {
-          "target_name": "Cracow Center",
-          "distance": 150
-        }
-      ]
-    },
-    {
-      "name": "Cracow Center",
-      "max_capacity": 4000,
-      "current_capacity": [
-        {
-          "product_name": "Apple",
-          "product_quantity": 3000
-        }
-      ],
-      "connections": [
-        {
-          "target_name": "Warsaw Hub",
-          "distance": 300
-        },
-        {
-          "target_name": "Lodz Depot",
-          "distance": 150
-        }
-      ]
-    },
-    {
-      "name": "Poznan Annex",
-      "max_capacity": 3200,
-      "current_capacity": [
-        {
-          "product_name": "Cucumber",
-          "product_quantity": 200
-        },
-        {
-          "product_name": "Oranges",
-          "product_quantity": 400
-        }
-      ],
-      "connections": [
-        {
-          "target_name": "Lodz Depot",
-          "distance": 200
-        },
-        {
-          "target_name": "Gdansk Port",
-          "distance": 250
-        }
-      ]
-    },
-    {
-      "name": "Gdansk Port",
-      "max_capacity": 2800,
-      "current_capacity": [
-        {
-          "product_name": "Oranges",
-          "product_quantity": 100
-        },
-        {
-          "product_name": "Onion",
-          "product_quantity": 600
-        }
-      ],
-      "connections": [
-        {
-          "target_name": "Warsaw Hub",
-          "distance": 340
-        },
-        {
-          "target_name": "Poznan Annex",
-          "distance": 250
         }
       ]
     }

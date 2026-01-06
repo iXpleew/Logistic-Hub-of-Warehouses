@@ -66,12 +66,18 @@ class LogisticHub:
                 if product["product_name"] == name:
                     print(f"{house.name} has {name}!")
 
-    def add_product(self, warehouse, name, quantity):
+    def add_product(self, warehouse_name, name, quantity):
+        warehouse = self.return_warehouse(warehouse_name)
+        if warehouse is None:
+            return print("Cannot add product to no-existing warehouse")
         request = Request(product_name=name, quantity=quantity)
         warehouse.add_product(request)
         pass
 
-    def remove_product(self, warehouse, name, quantity):
+    def remove_product(self, warehouse_name, name, quantity):
+        warehouse = self.return_warehouse(warehouse_name)
+        if warehouse is None:
+            return print("Cannot remove product form no-existing warehouse")
         request = Request(product_name=name, quantity=quantity)
         warehouse.remove_product(request)
         pass
@@ -79,11 +85,18 @@ class LogisticHub:
     def show_actual_requests(self):
         pass
 
+    def return_warehouse(self, warehouse_name):
+        for warehouse in self.ware_list:
+            if warehouse.name == warehouse_name:
+                return warehouse
+        return None
+
     def show_what_warehouse_has(self, warehouse_name):
-        for house in self.ware_list:
-            if house.name.find(warehouse_name):
-                house.show_products()
-                break
+        warehouse = self.return_warehouse(warehouse_name)
+        if warehouse is None:
+            return print("That warehouse doesnt exist")
+        else:
+            warehouse.show_products()
 
     def save_hub(self):
         pass
