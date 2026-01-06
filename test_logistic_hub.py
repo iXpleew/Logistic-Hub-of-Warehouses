@@ -36,3 +36,21 @@ def test_adding_new_overreached_hub():
 def test_return_correct_data_file():
     hub = LogisticHub(valid_data)
     assert valid_data == hub.data_file
+
+
+def test_crating_new_warehouse():
+    # There are 5 hubs in valid data
+    hub = LogisticHub(valid_data)
+    assert len(hub.ware_list) == 5
+    hub.add_warehouse("Wroclaw Hub", 20, curr_capaci=None, connect=None)
+    assert len(hub.ware_list) == 6
+
+
+def test_looking_for_warehouse():
+    hub = LogisticHub(valid_data)
+    current_warehouse = None
+    for warehouse in hub.ware_list:
+        if warehouse.name != "Warsaw Hub":
+            current_warehouse = warehouse
+            break
+    assert current_warehouse is not None

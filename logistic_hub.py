@@ -22,6 +22,8 @@ class LogisticHub:
             self.ware_list.append(warehouse)
 
         for source in data["warehouses"]:
+            if source["connections"] is None:
+                break
             for destination in source["connections"]:
                 target = destination["target_name"]
                 distance = destination["distance"]
@@ -43,19 +45,19 @@ class LogisticHub:
                 self.graph.add_edge(connection["target_name"],
                                     name,
                                     weight=connection["distance"])
-        with open(self.data_file, mode="r") as file:
-            data = json.load(file)
-            warehouse_data = data["warehouses"]
-            new_dict_warehouse = {
-                "name": name,
-                "max_capacity": max_capaci,
-                "current_capacity": curr_capaci,
-                "connections": connect
-            }
-            warehouse_data.append(new_dict_warehouse)
+        # with open(self.data_file, mode="r") as file:
+        #     data = json.load(file)
+        #     warehouse_data = data["warehouses"]
+        #     new_dict_warehouse = {
+        #         "name": name,
+        #         "max_capacity": max_capaci,
+        #         "current_capacity": curr_capaci,
+        #         "connections": connect
+        #     }
+        #     warehouse_data.append(new_dict_warehouse)
 
-        with open(self.data_file, mode="w") as file:
-            json.dump(data, file, indent=2)
+        # with open(self.data_file, mode="w") as file:
+        #     json.dump(data, file, indent=2)
 
     def start_request(self):
         pass

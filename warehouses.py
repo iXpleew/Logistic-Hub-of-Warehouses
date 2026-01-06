@@ -70,7 +70,7 @@ class Warehouse:
     def add_product(self, request):
         if self.check_overload(self.curr_capacity, request.quantity):
             if request.quantity > self.max_capacity:
-                print("Request cancelled, because its quantity is bigger than maximum capacity!")
+                return print("Request cancelled, because its quantity is bigger than maximum capacity!")
             print(f"That request makes {self.name} overloaded!")
             print("Request is queued!")
             self.requests_queue.append(request)
