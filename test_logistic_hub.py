@@ -3,6 +3,7 @@ import pytest
 
 invalid_data = "invalid_data.json"
 valid_data = "data.json"
+test_data = "testing_data.json"
 
 
 def test_creating_logistic_hub():
@@ -38,19 +39,94 @@ def test_return_correct_data_file():
     assert valid_data == hub.data_file
 
 
+def test_connection():
+    hub = LogisticHub(test_data)
+    warehouse = hub.return_warehouse("Lodz Depot")
+    lodz_connections = 3
+    counter = 0
+    if warehouse is not None:
+        for con in warehouse.connections:
+            counter += 1
+    assert lodz_connections == counter
+
+
 def test_crating_new_warehouse():
     # There are 5 hubs in valid data
-    hub = LogisticHub(valid_data)
+    hub = LogisticHub(test_data)
     assert len(hub.ware_list) == 5
     hub.add_warehouse("Wroclaw Hub", 20, curr_capaci=None, connect=None)
     assert len(hub.ware_list) == 6
 
 
 def test_looking_for_warehouse():
-    hub = LogisticHub(valid_data)
+    hub = LogisticHub(test_data)
     current_warehouse = None
     for warehouse in hub.ware_list:
         if warehouse.name != "Warsaw Hub":
             current_warehouse = warehouse
             break
     assert current_warehouse is not None
+
+
+def test_adding_item_to_warehouse_that_doesnt_have_it():
+    hub = LogisticHub(test_data)
+    hub.add_product("Warsaw Hub", "Potato", 10)
+    warehouse = hub.return_warehouse("Warsaw Hub")
+    found = False
+    if warehouse is not None:
+        for product in warehouse.curr_capacity:
+            if product["product_name"] == "Potato":
+                found = True
+    assert found is True
+
+
+def test_removing_unexisting_item_from_warehouse():
+    hub = LogisticHub(test_data)
+    assert hub.remove_product("Warsaw Hub", "Potato", 10) is False
+
+
+def test_removing_existing_item():
+    hub = LogisticHub(test_data)
+    assert hub.remove_product("Warsaw Hub", "Carrot", 200) is True
+
+
+def test_removing_too_much_existing_item():
+    hub = LogisticHub(test_data)
+    assert hub.remove_product("Warsaw Hub", "Carrot", 20000) is False
+
+
+def test_requesting():
+    hub = LogisticHub(test_data)
+    first_lenght = len(hub.requests_list)
+    hub.start_request("Warsaw Hub", "Gdansk Port", "Carrot", 200)
+    second_lenght = len(hub.requests_list)
+    assert first_lenght == 0 and second_lenght == 1
+
+
+def test_not_requesting():
+    hub = LogisticHub(test_data)
+    first_lenght = len(hub.requests_list)
+    hub.start_request("Warsaw Hub", "Gdansk Port", "Carrot", 2000000)
+    second_lenght = len(hub.requests_list)
+    assert first_lenght == 0 == second_lenght
+
+
+def test_deleting_from_source_adding_to_destination():
+    hub = LogisticHub(test_data)
+    hub.start_request("Poznan Annex", "Cracow Center", "Cucumber", 200)
+    hub.skip_time()
+
+    cucumbers_in_poznan = False
+    cucumbers_in_cracow = False
+
+    poznan = hub.return_warehouse("Poznan Annex")
+    cracow = hub.return_warehouse("Cracow Center")
+
+    if poznan and cracow is not None:
+        for product in poznan.curr_capacity:
+            if product["product_name"] == "Cucumber":
+                cucumbers_in_poznan = True
+        for product in cracow.curr_capacity:
+            if product["product_name"] == "Cucumber" and product["product_quantity"] == 200:
+                cucumbers_in_cracow = True
+    assert cucumbers_in_poznan is False and cucumbers_in_cracow is True

@@ -11,3 +11,6 @@ if __name__ == "__main__":
     hub.start_request("Warsaw Hub", "Poznan Annex", "Carrot", 10)
     hub.show_actual_requests()
     hub.draw_graph()
+
+    # remember to reduce number of product that are sent to warehouse
+    # when request has 

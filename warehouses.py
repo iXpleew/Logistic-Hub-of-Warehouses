@@ -1,10 +1,10 @@
 class Warehouse:
-    def __init__(self, name, max_capaci, curr_capaci=None, connections=None):
+    def __init__(self, name, max_capaci, curr_capacity=None, connections=None):
         self._name = name
         self._max_capaci = max_capaci
-        if curr_capaci is not None and self.check_overload(curr_capaci):
+        if curr_capacity is not None and self.check_overload(curr_capacity):
             raise ValueError("Warehouse overloaded!")
-        self._curr_capaci = curr_capaci
+        self.curr_capacity = curr_capacity
         self._connections = connections
         self.to_be_given = []
 
@@ -15,10 +15,6 @@ class Warehouse:
     @property
     def max_capacity(self):
         return self._max_capaci
-
-    @property
-    def curr_capacity(self):
-        return self._curr_capaci
 
     @property
     def connections(self):
@@ -50,16 +46,17 @@ class Warehouse:
     def requests_remaining(self):
         for request in self.to_be_given:
             if self.check_overload(request):
-                continue
+                break
             else:
                 self.adding_quantity(request)
+                self.to_be_given.pop(0)
 
     def show_products(self):
-        if self._curr_capaci is None:
+        if self.curr_capacity is None:
             print("This Warehouse doesnt have anything inside")
         else:
             print("This Warehouse has: ")
-            for prod in self._curr_capaci:
+            for prod in self.curr_capacity:
                 print(f'{prod["product_name"]} - {prod["product_quantity"]}')
 
     def adding_quantity(self, request):
@@ -67,20 +64,21 @@ class Warehouse:
         demanded_quantity = request.quantity
 
         if self.curr_capacity is None:
-            self._curr_capacity = []
-            self._curr_capacity.append({
+            self.curr_capacity = []
+            self.curr_capacity.append({
                 "product_name": demanded_product,
                 "product_quantity": demanded_quantity
             })
             return
-        for product in self.curr_capacity:
-            if product["product_name"] == demanded_product:
-                product["product_quantity"] += demanded_quantity
-                return
-        self._curr_capacity.append({
-            "product_name": demanded_product,
-            "product_quantity": demanded_quantity
-        })
+        else:
+            for product in self.curr_capacity:
+                if product["product_name"] == demanded_product:
+                    product["product_quantity"] += demanded_quantity
+                    return
+            self.curr_capacity.append({
+                "product_name": demanded_product,
+                "product_quantity": demanded_quantity
+            })
 
     def add_product(self, request):
         if self.check_overload(self.curr_capacity, request.quantity):

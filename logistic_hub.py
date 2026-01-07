@@ -50,9 +50,14 @@ class LogisticHub:
         self.requests_list.append(request)
 
     def skip_time(self):
+        # checking if there are products that can be sent right now
+        for warehouse in self.ware_list:
+            warehouse.requests_remaining()
+
+        # and now doing requests
         for request in self.requests_list[:]:
             source = self.return_warehouse(request.source)
-            destination = self.return_warehouse(request.destionation)
+            destination = self.return_warehouse(request.destination)
             if source is not None and destination is not None and source.remove_product(request):
                 destination.add_product(request)
             else:
@@ -82,8 +87,10 @@ class LogisticHub:
             return print("Cannot remove product form no-existing warehouse")
         request = Request(product_name=name, quantity=quantity, source=warehouse)
 
-        warehouse.remove_product(request)
-        pass
+        if warehouse.remove_product(request):
+            return True
+        else:
+            return False
 
     def show_actual_requests(self):
         print("******* DELIVERIES *******")
