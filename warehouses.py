@@ -6,7 +6,6 @@ class Warehouse:
             raise ValueError("Warehouse overloaded!")
         self._curr_capaci = curr_capaci
         self._connections = connections
-        self.to_be_sent = []
         self.to_be_given = []
 
     @property
@@ -47,6 +46,13 @@ class Warehouse:
             return True
         else:
             return False
+
+    def requests_remaining(self):
+        for request in self.to_be_given:
+            if self.check_overload(request):
+                continue
+            else:
+                self.adding_quantity(request)
 
     def show_products(self):
         if self._curr_capaci is None:
@@ -96,9 +102,12 @@ class Warehouse:
                 left_products = product["product_quantity"] - request.quantity
                 if left_products > 0:
                     product["product_quantity"] = left_products
-                else:
+                elif left_products == 0:
                     self.curr_capacity[:] = [x for x in self.curr_capacity if x["product_name"] != request.product_name]
-                    print(f"For simplification, that request deleted all of the {request.product_name}!")
+                    print("Product has been removed succesfully!")
+                else:
+                    print("Not enough product in warehouse, proccess of removing denied")
+                    return False
                 return True
         print("Object wasn't found in this warehouse!")
         return False

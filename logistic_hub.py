@@ -50,8 +50,17 @@ class LogisticHub:
         self.requests_list.append(request)
 
     def skip_time(self):
-        for requests in self.requests_list:
+        for request in self.requests_list[:]:
+            source = self.return_warehouse(request.source)
+            destination = self.return_warehouse(request.destionation)
+            if source is not None and destination is not None and source.remove_product(request):
+                destination.add_product(request)
+            else:
+                print("This request cannot be handled so it's denied")
+            self.requests_list.remove(request)
 
+    def clear_requests(self):
+        self.requests_list.clear()
 
     def search_product(self, name):
         for house in self.ware_list:
