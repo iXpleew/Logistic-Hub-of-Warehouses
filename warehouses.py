@@ -69,7 +69,6 @@ class Warehouse:
             return
         for product in self.curr_capacity:
             if product["product_name"] == demanded_product:
-                print("lol")
                 product["product_quantity"] += demanded_quantity
                 return
         self._curr_capacity.append({

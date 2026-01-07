@@ -46,13 +46,12 @@ class LogisticHub:
         if destination_warehouse.max_capacity < request.quantity:
             return print("Request's capacity is bigger than maximum capacity")
 
-        # add this condition to method which completes all of the requests (because item may be removed meanwhile)
-        # if not destination.is_there_a_product(request.product_name):
-        #     return print(f"{destination.name} dosnt have {request.product_name}")
-
-        # now it should work
         print("Request is accepted!")
         self.requests_list.append(request)
+
+    def skip_time(self):
+        for requests in self.requests_list:
+
 
     def search_product(self, name):
         for house in self.ware_list:
