@@ -13,4 +13,4 @@ if __name__ == "__main__":
     hub.draw_graph()
 
     # remember to reduce number of product that are sent to warehouse
-    # when request has 
+    # when request has

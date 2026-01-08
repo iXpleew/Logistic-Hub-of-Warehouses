@@ -45,7 +45,7 @@ class Warehouse:
 
     def requests_remaining(self):
         for request in self.to_be_given:
-            if self.check_overload(request):
+            if self.check_overload(self.curr_capacity, request.quantity):
                 break
             else:
                 self.adding_quantity(request)

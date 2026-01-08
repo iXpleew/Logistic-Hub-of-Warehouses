@@ -130,3 +130,50 @@ def test_deleting_from_source_adding_to_destination():
             if product["product_name"] == "Cucumber" and product["product_quantity"] == 200:
                 cucumbers_in_cracow = True
     assert cucumbers_in_poznan is False and cucumbers_in_cracow is True
+
+
+def test_queueing_request():
+    hub = LogisticHub(test_data)
+    poznan = hub.return_warehouse("Poznan Annex")
+    if poznan is None:
+        assert False
+    assert len(poznan.to_be_given) == 0
+    hub.start_request("Cracow Center", "Poznan Annex", "Apple", 3000)
+    hub.skip_time()
+    assert len(poznan.to_be_given) == 1
+
+
+def test_removing_from_source_and_queue_in_destination():
+    hub = LogisticHub(test_data)
+    hub.start_request("Gdansk Port", "Lodz Depot", "Onion", 600)
+    hub.skip_time()
+
+    gdansk = hub.return_warehouse("Gdansk Port")
+    lodz = hub.return_warehouse("Lodz Depot")
+
+    onions_in_gdansk = False
+    onions_in_lodz = False
+
+    if gdansk is None or lodz is None:
+        assert False
+
+    for product in gdansk.curr_capacity:
+        if product["product_name"] == "Onion":
+            onions_in_gdansk = True
+            break
+    assert not onions_in_gdansk
+
+    for product in lodz.curr_capacity:
+        if product["product_name"] == "Onion":
+            onions_in_lodz = True
+            break
+    assert not onions_in_lodz
+
+    hub.remove_product("Lodz Depot", "Strawberry", 1000)
+    hub.skip_time()
+
+    for product in lodz.curr_capacity:
+        if product["product_name"] == "Onion":
+            onions_in_lodz = True
+            break
+    assert onions_in_lodz
