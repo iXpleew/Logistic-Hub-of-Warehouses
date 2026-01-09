@@ -28,14 +28,9 @@ class LogisticHub:
                 weight=distance
             )
 
-    def add_warehouse(self, name, max_capaci, curr_capaci, connect):
-        new_warehouse = Warehouse(name, max_capaci, curr_capaci, connect)
-
-        self.graph.add_node(name, item=new_warehouse)
-        self.ware_list.append(new_warehouse)
-        self.add_edges_to_graph(new_warehouse)
-
-    def start_request(self, source: str, destination: str, name, quantity):
+    def start_request(self, source: str, destination: str, name: str, quantity: int):
+        if source == destination:
+            return print("Request to the same warehouse is forbidden")
         request = Request(name, quantity, source, destination)
         source_warehouse = self.return_warehouse(source)
         destination_warehouse = self.return_warehouse(destination)
@@ -67,13 +62,13 @@ class LogisticHub:
     def clear_requests(self):
         self.requests_list.clear()
 
-    def search_product(self, name):
+    def search_product(self, name: str):
         for house in self.ware_list:
             for product in house.curr_capacity:
                 if product["product_name"] == name:
                     print(f"{house.name} has {name}!")
 
-    def add_product(self, warehouse_name, name, quantity):
+    def add_product(self, warehouse_name: str, name: str, quantity: int):
         warehouse = self.return_warehouse(warehouse_name)
         if warehouse is None:
             return print("Cannot add product to no-existing warehouse")
@@ -81,7 +76,7 @@ class LogisticHub:
         warehouse.add_product(request)
         pass
 
-    def remove_product(self, warehouse_name, name, quantity):
+    def remove_product(self, warehouse_name: str, name: str, quantity: int):
         warehouse = self.return_warehouse(warehouse_name)
         if warehouse is None:
             return print("Cannot remove product form no-existing warehouse")
@@ -103,13 +98,13 @@ class LogisticHub:
             print(f"Through: {bypassed_cities} and total distance is {distance}")
             print()
 
-    def return_warehouse(self, warehouse_name):
+    def return_warehouse(self, warehouse_name: str):
         for warehouse in self.ware_list:
             if warehouse.name == warehouse_name:
                 return warehouse
         return None
 
-    def show_what_warehouse_has(self, warehouse_name):
+    def show_what_warehouse_has(self, warehouse_name: str):
         warehouse = self.return_warehouse(warehouse_name)
         if warehouse is None:
             return print("That warehouse doesnt exist")
@@ -126,7 +121,7 @@ class LogisticHub:
                 "connections": warehouse.connections
             }
             warehouse_list.append(new_dict)
-        with open("testing_data.json", mode="w") as file:
+        with open(self.data_file, mode="w") as file:
             json.dump({"warehouses": warehouse_list}, file, indent=2)
 
     def load_hub(self):

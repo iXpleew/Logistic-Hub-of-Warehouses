@@ -15,25 +15,6 @@ def test_maximum_capacity_overreached():
         _ = LogisticHub(invalid_data)
 
 
-def test_adding_new_overreached_hub():
-    with pytest.raises(ValueError):
-        hub = LogisticHub(valid_data)
-        hub.add_warehouse(
-            name="Wroclaw Hub",
-            max_capaci=2000,
-            curr_capaci=[
-                {
-                    "product_name": "Cucumber",
-                    "product_quantity": 123900
-                }
-            ],
-            connect=[{
-                "target_name": "Cracow Center",
-                "distance": 100
-            }]
-        )
-
-
 def test_return_correct_data_file():
     hub = LogisticHub(valid_data)
     assert valid_data == hub.data_file
@@ -48,14 +29,6 @@ def test_connection():
         for con in warehouse.connections:
             counter += 1
     assert lodz_connections == counter
-
-
-def test_crating_new_warehouse():
-    # There are 5 hubs in valid data
-    hub = LogisticHub(test_data)
-    assert len(hub.ware_list) == 5
-    hub.add_warehouse("Wroclaw Hub", 20, curr_capaci=None, connect=None)
-    assert len(hub.ware_list) == 6
 
 
 def test_looking_for_warehouse():
@@ -177,3 +150,26 @@ def test_removing_from_source_and_queue_in_destination():
             onions_in_lodz = True
             break
     assert onions_in_lodz
+
+
+def test_adding_existing_product_increases_quantity():
+    hub = LogisticHub(test_data)
+    hub.add_product("Warsaw Hub", "Banana", 50)
+    hub.add_product("Warsaw Hub", "Banana", 30)
+
+    warehouse = hub.return_warehouse("Warsaw Hub")
+    quantity = 0
+    if warehouse:
+        for product in warehouse.curr_capacity:
+            if product["product_name"] == "Banana":
+                quantity = product["product_quantity"]
+
+    assert quantity == 80
+
+
+# def test_negative_values_handling():
+#     hub = LogisticHub(test_data)
+
+#     assert hub.add_product("Warsaw Hub", "ErrorItem", -50) is False
+
+#     assert hub.remove_product("Warsaw Hub", "Carrot", -10) is False

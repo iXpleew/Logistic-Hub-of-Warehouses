@@ -44,7 +44,8 @@ class Warehouse:
             return False
 
     def requests_remaining(self):
-        for request in self.to_be_given:
+        while self.to_be_given:
+            request = self.to_be_given[0]
             if self.check_overload(self.curr_capacity, request.quantity):
                 break
             else:
