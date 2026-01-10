@@ -72,7 +72,7 @@ class LogisticHub:
         warehouse = self.return_warehouse(warehouse_name)
         if warehouse is None:
             return print("Cannot add product to no-existing warehouse")
-        request = Request(product_name=name, quantity=quantity, destination=warehouse)
+        request = Request(product_name=name, quantity=quantity, destination=warehouse_name)
         warehouse.add_product(request)
         pass
 
