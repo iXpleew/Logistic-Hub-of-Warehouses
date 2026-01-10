@@ -1,6 +1,9 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Request:
-    def __init__(self, product_name, quantity, source=None, destination=None):
-        self.product_name = product_name
-        self.quantity = quantity
-        self.source = source
-        self.destination = destination
+    product_name: str
+    quantity: int
+    source: str | None = None
+    destination: str | None = None

@@ -1,5 +1,6 @@
 from logistic_hub import LogisticHub
-import os, time
+import os
+import time
 
 start_data = "data.json"
 test_data = "testing_data.json"
