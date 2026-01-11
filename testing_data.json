@@ -6,7 +6,7 @@
       "current_capacity": [
         {
           "product_name": "Carrot",
-          "product_quantity": 3200
+          "product_quantity": 2400
         },
         {
           "product_name": "Tomato",
@@ -33,12 +33,12 @@
       "max_capacity": 3000,
       "current_capacity": [
         {
-          "product_name": "Strawberry",
-          "product_quantity": 1000
-        },
-        {
           "product_name": "Carrot",
           "product_quantity": 1700
+        },
+        {
+          "product_name": "Strawberry",
+          "product_quantity": 1000
         }
       ],
       "connections": [
@@ -85,7 +85,7 @@
           "product_quantity": 200
         },
         {
-          "product_name": "Oranges",
+          "product_name": "Orange",
           "product_quantity": 400
         }
       ],
@@ -105,7 +105,7 @@
       "max_capacity": 2800,
       "current_capacity": [
         {
-          "product_name": "Oranges",
+          "product_name": "Orange",
           "product_quantity": 100
         },
         {
@@ -123,6 +123,12 @@
           "distance": 250
         }
       ]
+    },
+    {
+      "name": "Moscow Mall",
+      "max_capacity": 10000,
+      "current_capacity": [],
+      "connections": []
     }
   ]
 }

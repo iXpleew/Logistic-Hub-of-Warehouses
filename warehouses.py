@@ -1,24 +1,12 @@
 class Warehouse:
     def __init__(self, name, max_capaci, curr_capacity=None, connections=None):
-        self._name = name
-        self._max_capaci = max_capaci
+        self.name = name
+        self.max_capacity = max_capaci
         if curr_capacity is not None and self.check_overload(curr_capacity):
             raise ValueError("Warehouse overloaded!")
         self.curr_capacity = curr_capacity
-        self._connections = connections
+        self.connections = connections
         self.to_be_given = []
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def max_capacity(self):
-        return self._max_capaci
-
-    @property
-    def connections(self):
-        return self._connections
 
     def count_currentcapacity(self, products):
         if products is None:
@@ -59,6 +47,7 @@ class Warehouse:
             print("This Warehouse has: ")
             for prod in self.curr_capacity:
                 print(f'{prod["product_name"]} - {prod["product_quantity"]}')
+        print(f"Maximum quantity: {self.max_capacity}")
 
     def adding_quantity(self, request):
         demanded_product = request.product_name

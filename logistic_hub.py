@@ -7,8 +7,8 @@ from matplotlib import pyplot as plt
 
 class LogisticHub:
     def __init__(self, data_file):
-        self._data_file = data_file
-        self._ware_graph = nx.Graph()
+        self.data_file = data_file
+        self.graph = nx.Graph()
         self.ware_list = []
         self.requests_list = []
 
@@ -34,12 +34,17 @@ class LogisticHub:
         request = Request(name, quantity, source, destination)
         source_warehouse = self.return_warehouse(source)
         destination_warehouse = self.return_warehouse(destination)
-
         if source_warehouse is None or destination_warehouse is None:
             return print("One of these warehouses doesnt exist, request cancelled!")
 
+        if not nx.has_path(self.graph, source, destination):
+            raise nx.NetworkXNoPath("Path between warehouses does no exist - request denied")
+
         if destination_warehouse.max_capacity < request.quantity:
             return print("Request's capacity is bigger than maximum capacity")
+
+        if not source_warehouse.is_there_a_product(name):
+            return print(f"This product is not in {source}")
 
         print("Request is accepted!")
         self.requests_list.append(request)
@@ -134,19 +139,11 @@ class LogisticHub:
                 warehouse_data["max_capacity"],
                 warehouse_data["current_capacity"],
                 warehouse_data["connections"])
-            self._ware_graph.add_node(warehouse_data["name"], item=warehouse)
+            self.graph.add_node(warehouse_data["name"], item=warehouse)
             self.ware_list.append(warehouse)
 
         for warehouse in self.ware_list:
             self.add_edges_to_graph(warehouse)
-
-    @property
-    def data_file(self):
-        return self._data_file
-
-    @property
-    def graph(self):
-        return self._ware_graph
 
     def draw_graph(self):
         nx.draw(self.graph, with_labels=True)

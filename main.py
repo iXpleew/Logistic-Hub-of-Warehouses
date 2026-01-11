@@ -1,4 +1,5 @@
 from logistic_hub import LogisticHub
+import networkx as nx
 import os
 import time
 
@@ -17,7 +18,7 @@ def check_if_digit(string: str):
 
 
 if __name__ == "__main__":
-    hub = LogisticHub(test_data)
+    hub = LogisticHub(start_data)
     while True:
         os.system("clear")
         print("--------------------------")
@@ -66,8 +67,13 @@ if __name__ == "__main__":
                 target = input("To where?: ").strip().title()
                 product = input("And what product?: ").strip().title()
                 quantity = input("And how much?: ")
+
                 if check_if_digit(quantity):
-                    hub.start_request(source, target, product, int(quantity))
+                    try:
+                        hub.start_request(source, target, product, int(quantity))
+                    except nx.NetworkXNoPath:
+                        print("Cannot handle that request, these warehouses arent connected")
+                        time.sleep(2)
             case "7":
                 hub.show_actual_requests()
                 input("Click anything to continue: ")
@@ -84,3 +90,4 @@ if __name__ == "__main__":
             case _:
                 print("Thanks for using that programme!")
                 break
+        time.sleep(2)
