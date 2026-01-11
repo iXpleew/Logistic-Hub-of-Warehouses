@@ -21,12 +21,12 @@ class LogisticHub:
         for connection in warehouse.connections:
             destination = connection["target_name"]
             distance = connection["distance"]
-
-            self.graph.add_edge(
-                warehouse.name,
-                destination,
-                weight=distance
-            )
+            if self.graph.has_node(destination):
+                self.graph.add_edge(
+                    warehouse.name,
+                    destination,
+                    weight=distance
+                )
 
     def start_request(self, source: str, destination: str, name: str, quantity: int):
         if source == destination:
@@ -134,14 +134,16 @@ class LogisticHub:
         with open(self.data_file, mode="r") as file:
             data = json.load(file)
         for warehouse_data in data["warehouses"]:
-            warehouse = Warehouse(
-                warehouse_data["name"],
-                warehouse_data["max_capacity"],
-                warehouse_data["current_capacity"],
-                warehouse_data["connections"])
-            self.graph.add_node(warehouse_data["name"], item=warehouse)
-            self.ware_list.append(warehouse)
-
+            try:
+                warehouse = Warehouse(
+                    warehouse_data["name"],
+                    warehouse_data["max_capacity"],
+                    warehouse_data["current_capacity"],
+                    warehouse_data["connections"])
+                self.graph.add_node(warehouse_data["name"], item=warehouse)
+                self.ware_list.append(warehouse)
+            except ValueError:
+                print("Warehouse not implemented - it's overloaded!")
         for warehouse in self.ware_list:
             self.add_edges_to_graph(warehouse)
 

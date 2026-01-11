@@ -2,126 +2,149 @@
   "warehouses": [
     {
       "name": "Warsaw Hub",
-      "max_capacity": 5000,
+      "max_capacity": 8000,
       "current_capacity": [
-        {
-          "product_name": "Carrot",
-          "product_quantity": 200
-        },
-        {
-          "product_name": "Tomato",
-          "product_quantity": 300
-        }
+        { "product_name": "Electronics", "product_quantity": 500 },
+        { "product_name": "Carrot", "product_quantity": 200 }
       ],
       "connections": [
-        {
-          "target_name": "Lodz Depot",
-          "distance": 130
-        },
-        {
-          "target_name": "Gdansk Port",
-          "distance": 340
-        },
-        {
-          "target_name": "Cracow Center",
-          "distance": 300
-        }
+        { "target_name": "Lodz Depot", "distance": 130 },
+        { "target_name": "Gdansk Port", "distance": 340 },
+        { "target_name": "Bialystok East", "distance": 200 },
+        { "target_name": "Lublin Storage", "distance": 170 }
       ]
     },
     {
       "name": "Lodz Depot",
-      "max_capacity": 3000,
+      "max_capacity": 6000,
       "current_capacity": [
-        {
-          "product_name": "Strawberry",
-          "product_quantity": 1000
-        },
-        {
-          "product_name": "Carrot",
-          "product_quantity": 1500
-        }
+        { "product_name": "Textiles", "product_quantity": 2000 },
+        { "product_name": "Strawberry", "product_quantity": 1000 }
       ],
       "connections": [
-        {
-          "target_name": "Warsaw Hub",
-          "distance": 130
-        },
-        {
-          "target_name": "Poznan Annex",
-          "distance": 200
-        },
-        {
-          "target_name": "Cracow Center",
-          "distance": 150
-        }
+        { "target_name": "Warsaw Hub", "distance": 130 },
+        { "target_name": "Poznan Annex", "distance": 210 },
+        { "target_name": "Wroclaw Warehouse", "distance": 220 },
+        { "target_name": "Katowice Mining", "distance": 200 }
       ]
     },
     {
       "name": "Cracow Center",
-      "max_capacity": 4000,
+      "max_capacity": 5000,
       "current_capacity": [
-        {
-          "product_name": "Apple",
-          "product_quantity": 3000
-        }
+        { "product_name": "Pretzels", "product_quantity": 4000 },
+        { "product_name": "Salt", "product_quantity": 300 }
       ],
       "connections": [
-        {
-          "target_name": "Warsaw Hub",
-          "distance": 300
-        },
-        {
-          "target_name": "Lodz Depot",
-          "distance": 150
-        }
+        { "target_name": "Katowice Mining", "distance": 80 },
+        { "target_name": "Rzeszow Gate", "distance": 160 }
       ]
     },
     {
       "name": "Poznan Annex",
-      "max_capacity": 3200,
+      "max_capacity": 4500,
       "current_capacity": [
-        {
-          "product_name": "Cucumber",
-          "product_quantity": 200
-        },
-        {
-          "product_name": "Oranges",
-          "product_quantity": 400
-        }
+        { "product_name": "Potato", "product_quantity": 3000 },
+        { "product_name": "Onion", "product_quantity": 400 }
       ],
       "connections": [
-        {
-          "target_name": "Lodz Depot",
-          "distance": 200
-        },
-        {
-          "target_name": "Gdansk Port",
-          "distance": 250
-        }
+        { "target_name": "Lodz Depot", "distance": 210 },
+        { "target_name": "Wroclaw Warehouse", "distance": 180 },
+        { "target_name": "Szczecin Hangar", "distance": 250 },
+        { "target_name": "Bydgoszcz River", "distance": 140 }
       ]
     },
     {
       "name": "Gdansk Port",
-      "max_capacity": 2800,
+      "max_capacity": 7000,
       "current_capacity": [
-        {
-          "product_name": "Oranges",
-          "product_quantity": 100
-        },
-        {
-          "product_name": "Onion",
-          "product_quantity": 600
-        }
+        { "product_name": "Fish", "product_quantity": 2000 },
+        { "product_name": "Amber", "product_quantity": 100 }
       ],
       "connections": [
-        {
-          "target_name": "Warsaw Hub",
-          "distance": 340
-        },
-        {
-          "target_name": "Poznan Annex",
-          "distance": 250
-        }
+        { "target_name": "Warsaw Hub", "distance": 340 },
+        { "target_name": "Szczecin Hangar", "distance": 360 },
+        { "target_name": "Bydgoszcz River", "distance": 160 }
+      ]
+    },
+    {
+      "name": "Wroclaw Warehouse",
+      "max_capacity": 4000,
+      "current_capacity": [
+        { "product_name": "Gnomes", "product_quantity": 100 },
+        { "product_name": "Electronics", "product_quantity": 400 }
+      ],
+      "connections": [
+        { "target_name": "Poznan Annex", "distance": 180 },
+        { "target_name": "Lodz Depot", "distance": 220 },
+        { "target_name": "Katowice Mining", "distance": 190 }
+      ]
+    },
+    {
+      "name": "Katowice Mining",
+      "max_capacity": 5500,
+      "current_capacity": [
+        { "product_name": "Coal", "product_quantity": 4000 },
+        { "product_name": "Steel", "product_quantity": 1000 }
+      ],
+      "connections": [
+        { "target_name": "Wroclaw Warehouse", "distance": 190 },
+        { "target_name": "Lodz Depot", "distance": 200 },
+        { "target_name": "Cracow Center", "distance": 80 }
+      ]
+    },
+    {
+      "name": "Szczecin Hangar",
+      "max_capacity": 3000,
+      "current_capacity": [
+        { "product_name": "Paprykarz", "product_quantity": 500 }
+      ],
+      "connections": [
+        { "target_name": "Gdansk Port", "distance": 360 },
+        { "target_name": "Poznan Annex", "distance": 250 }
+      ]
+    },
+    {
+      "name": "Bydgoszcz River",
+      "max_capacity": 2500,
+      "current_capacity": [],
+      "connections": [
+        { "target_name": "Gdansk Port", "distance": 160 },
+        { "target_name": "Poznan Annex", "distance": 140 }
+      ]
+    },
+    {
+      "name": "Bialystok East",
+      "max_capacity": 3000,
+      "current_capacity": [
+        { "product_name": "Milk", "product_quantity": 1000 }
+      ],
+      "connections": [
+        { "target_name": "Warsaw Hub", "distance": 200 },
+        { "target_name": "Lublin Storage", "distance": 250 }
+      ]
+    },
+    {
+      "name": "Lublin Storage",
+      "max_capacity": 3200,
+      "current_capacity": [
+        { "product_name": "Cider", "product_quantity": 600 }
+      ],
+      "connections": [
+        { "target_name": "Warsaw Hub", "distance": 170 },
+        { "target_name": "Bialystok East", "distance": 250 },
+        { "target_name": "Rzeszow Gate", "distance": 150 }
+      ]
+    },
+    {
+      "name": "Rzeszow Gate",
+      "max_capacity": 3000,
+      "current_capacity": [
+        { "product_name": "Aviation Parts", "product_quantity": 200 }
+      ],
+      "connections": [
+        { "target_name": "Lublin Storage", "distance": 150 },
+        { "target_name": "Cracow Center", "distance": 160 }
       ]
     }
   ]
