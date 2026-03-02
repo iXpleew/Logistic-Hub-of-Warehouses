@@ -11,7 +11,7 @@
     - loading and saving progress
   This application includes all of the above assumptions
 ## Documentation
-  Documentation is avaible in porgram's files and it's names "Logistic Hub of Warehouses - dokumentacja.pdf"
+  Documentation is avaible in porgram's files and it's names "Logistic Hub of Warehouses - Dokumentacja2.pdf"
   unfortunately it's only in Polish.
 ## Final thoughts
   I scored 14 out of 18 points for that project which is a definetely a great outcome. Things I would change
